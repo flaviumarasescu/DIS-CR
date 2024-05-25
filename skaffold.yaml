@@ -1,0 +1,59 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+build:
+  artifacts:
+    - image: flaviumarasescu/cr-concert-service
+      context: concert-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: flaviumarasescu/cr-query-service
+      context: query-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: flaviumarasescu/cr-client-service
+      context: client-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: flaviumarasescu/cr-payment-service
+      context: payment-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: flaviumarasescu/cr-pdf-converter-service
+      context: pdf-converter-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: flaviumarasescu/cr-reservation-service
+      context: reservation-service
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+deploy:
+  kubectl: {}

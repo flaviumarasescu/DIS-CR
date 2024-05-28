@@ -1,6 +1,3 @@
-// const {TICKET_API_URL} = require('./URLs')
-
-// const bodyParser = require('body-parser')
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -8,8 +5,6 @@ const router = require('./routes');
 
 const app = express();
 
-// app.use(express.urlencoded({extended: false}))
-// app.use(bodyParser.json())
 app.use(express.json());
 app.use('/api', router);
 

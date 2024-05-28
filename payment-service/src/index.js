@@ -1,17 +1,8 @@
-// const {TICKET_API_URL} = require('./URLs')
 const mongoose = require('mongoose');
 
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
-const prometheus = require('prom-client');
-const os = require('os');
-
-const httpRequestCounter = new prometheus.Counter({
-  name: 'http_requests_total',
-  help: 'Total number of HTTP requests',
-  labelNames: ['method', 'path', 'status'],
-});
 
 const router = require('./routes');
 
@@ -26,12 +17,7 @@ app.use('/api', router);
 const Startup = async () => {
   try {
     const database = await mongoose.connect(
-      'mongodb://concert-mongo-service:27017/payment',
-      {
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true
-        // useCreateIndex: true
-      }
+      'mongodb://concert-mongo-service:27017/payment'
     );
     console.log(
       'connected to mongo payment',

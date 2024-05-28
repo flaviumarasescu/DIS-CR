@@ -1,7 +1,6 @@
 const express = require('express');
 const axios = require('axios');
 const ReservationModel = require('../models/reservation');
-// const ConcertModel = require("../../../concert-service/src/models/concert");
 
 const router = express.Router();
 
@@ -17,16 +16,6 @@ router.post('/reservation/create', async (req, res) => {
 
     const ticketsId = concert_data.tickets.map((ticket) => ticket.ticket_id);
 
-    // const concertFilter = {
-    //   _id: concert_id,
-    //   "tickets.ticket_id": { $in: ticketsId },
-    // };
-
-    // const update = { $set: { "tickets.$.status": "sold" } };
-
-    // const result = await ConcertModel.updateMany(concertFilter, update);
-    // console.log('result Reservation', result);
-
     const pdfConvertRes = await axios.post(
       'http://pdf-converter-service:5003/api/pdf-convert/create',
       {
@@ -34,7 +23,7 @@ router.post('/reservation/create', async (req, res) => {
         concert_data,
       },
       {
-        responseType: 'arraybuffer', // Ensure the response is treated as binary data
+        responseType: 'arraybuffer',
       }
     );
     console.log('pdfConvertRes.data', pdfConvertRes.data);

@@ -1,22 +1,13 @@
-// const {TICKET_API_URL} = require('./URLs')
-
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const express = require('express');
-// const mongoose = require('mongoose')
-// import ConcertModel from "./models/concert";
+
 const ConcertModel = require('./models/concert');
 const router = require('./routes');
 const cors = require('cors');
 
 const app = express();
-
-// const HttpsAgent = require('agentkeepalive').HttpsAgent;
-
-// const agent = new HttpsAgent({
-//     freeSocketTimeout: 5001
-// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,15 +18,8 @@ app.use('/api', router);
 
 const Startup = async () => {
   try {
-    // await mongoose.connect('mongodb://concert-mongo-service:27017/concert', {
     const database = await mongoose.connect(
-      // 'mongodb://10.97.201.142:27017/concert',
-      'mongodb://concert-mongo-service:27017/concert',
-      {
-        // useNewUrlParser: true,
-        useUnifiedTopology: false,
-        // useCreateIndex: true
-      }
+      'mongodb://concert-mongo-service:27017/concert'
     );
     console.log(
       'connected to mongo concert',
@@ -56,9 +40,9 @@ const Startup = async () => {
     });
     await newConcert.save();
     const list = await ConcertModel.find({});
-    console.log('fff list', list);
+    console.log('list', list);
   } catch (e) {
-    console.error('fffe', e);
+    console.error('error', e);
   }
   app.listen(5001, () => {
     console.log(`concert-service listening on port 5001!!! `);

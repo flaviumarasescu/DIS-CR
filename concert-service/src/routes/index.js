@@ -21,26 +21,9 @@ const camelToSnake = (obj) => {
   }, {});
 };
 
-// router.get("/concert", async (req, res) => {
-//   try {
-//     console.log("concert post1");
-//
-//     // return 'GET CONCERTS ffffffffffff'
-//     await axios.post("http://query-service:5000/api/query/payment/create");
-//     return res.status(200).send("GET CONCERTS ffffffffffff");
-//   } catch (e) {
-//     console.error("Errf concert:", e);
-//   }
-// });
-
 router.post('/concert', async (req, res) => {
-  // router.post("/concert", async (req, res) => {
   try {
-    // return 'GET CONCERTS ffffffffffff'
-    // console.log('concert post2 req.body', req.body);
     const { payment_data, concert_data, concert_id } = camelToSnake(req.body);
-    // console.log('payment_dataff', payment_data);
-    // console.log('concert_dataff', concert_data);
     const paymentRes = await axios.post(
       'http://payment-service:5002/api/payment/create',
       {
@@ -49,21 +32,14 @@ router.post('/concert', async (req, res) => {
         concert_data,
       },
       {
-        responseType: 'arraybuffer', // Ensure the response is treated as binary data
+        responseType: 'arraybuffer',
       }
     );
-    // console.log('paymentRes.data', paymentRes.data);
     return res.status(200).send(paymentRes.data);
   } catch (e) {
     console.error('Errf concert:', e);
   }
 });
-
-// router.post("/concert", (req, res) => {
-//   // return 'GET CONCERTS ffffffffffff'
-//   console.log("concert post2");
-//   res.status(200).send("POST CONCERTS ffffffffffff");
-// });
 
 router.get('/', (req, res) => {
   res.status(200).send('GET CONCERTS');

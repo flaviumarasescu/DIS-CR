@@ -1,5 +1,3 @@
-// const {TICKET_API_URL} = require('./URLs')
-
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
